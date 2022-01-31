@@ -1,4 +1,4 @@
-package ua.site.controllers;
+package ua.site.controllers.intro;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,13 @@ public class FirstController {
 
         model.addAttribute("message", "Hello, " + name);
 
-        return "first/hello";
+        return "/intro/first/hello";
     }
 
     @GetMapping("/goodbye")
     public String goodbyePage(@RequestParam(value = "name", required = false) String name) {
         System.out.println("Bye, " + name);
-        return "first/goodbye";
+        return "/intro/first/goodbye";
     }
 
     @GetMapping("/calculator")
@@ -52,6 +52,6 @@ public class FirstController {
         }
         model.addAttribute("answer", answer);
 
-        return "first/calculator";
+        return "/intro/first/calculator";
     }
 }

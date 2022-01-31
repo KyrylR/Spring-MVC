@@ -1,4 +1,4 @@
-package ua.site.controllers;
+package ua.site.controllers.intro;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +10,6 @@ public class HelloController {
 
     @GetMapping("/hello-world")
     public String sayHello() {
-        return "hello_world";
+        return "intro/hello_world";
     }
 }
