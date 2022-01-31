@@ -1,15 +1,20 @@
 package ua.site.models.crud;
 
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Person {
     private int id;
-    private String name;
-    private String email;
 
-    public Person(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    private String name;
+
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
+    private String email;
 
     public Person() {
 
@@ -19,6 +24,13 @@ public class Person {
         this.id = id;
         this.name = name;
     }
+
+    public Person(int id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
 
     public String getEmail() {
         return email;
