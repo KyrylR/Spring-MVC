@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+<div th:switch="${object.getObject()}">
+    <div th:case="'field'">
+        <p th:text="Field ID: ${object.getId()}"></p>
+        <p th:text="Field Name: ${object.getName()}"></p>
+        <p th:text="Field Latitudes: ${object.getLatitude()}"></p>
+        <p th:text="Field Longitudes: ${object.getLongitude()}"></p>
+        <p th:text="Field from Area with ID: ${object.getArea().display()}"></p>
+    </div>
+    <div th:case="'sample'">
+        <p th:text="Sample ID: ${object.getId()}"></p>
+        <p th:text="Sample Latitude: ${object.getLatitude()}"></p>
+        <p th:text="Sample Longitude: ${object.getLongitude()}"></p>
+        <p th:text="Sample from Field with ID: ${object.getField().display()}"></p>
+    </div>
+    <div th:case="'area'">
+        <p th:text="Area ID: ${object.getId()}"></p>
+        <p th:text="Area Region: ${object.getRegion()}"></p>
+    </div>
+</div>
+
+<p th:text="${object.toString()}"></p>
+
+<!--<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit!</a>-->
+
+<!--<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">-->
+<!--    <button type="submit">Delete!</button>-->
+<!--</form>-->
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Locations</title>
+</head>
+<body>
+
+<div th:each="obj: ${objects}">
+    <a th:href="@{/locations/{name}/{id}(id=${obj.getId()}, name=${obj.getObject()})}"
+       th:text="${obj.getName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<!--<a href="/people/new">Create new person</a>-->
+
+</body>
+</html>
