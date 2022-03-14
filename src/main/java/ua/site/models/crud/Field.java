@@ -88,12 +88,20 @@ public class Field implements Display {
         return latitude;
     }
 
+    public String getLatitudeStr() {
+        return Arrays.toString(latitude);
+    }
+
     public void setLatitude(Double[] latitude) {
         this.latitude = latitude;
     }
 
     public Double[] getLongitude() {
         return longitude;
+    }
+
+    public String getLongitudeStr() {
+        return Arrays.toString(longitude);
     }
 
     public void setLongitude(Double[] longitude) {
