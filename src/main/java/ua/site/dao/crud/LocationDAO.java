@@ -1,8 +1,8 @@
 package ua.site.dao.crud;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ua.site.dao.crud.Mappers.AreaMapper;
 import ua.site.models.crud.Area;
 import ua.site.models.crud.Field;
 import ua.site.models.crud.Sample;
@@ -19,7 +19,7 @@ public class LocationDAO {
 
     // ------------ Area block --------------
     public List<Area> indexAreas() {
-        return jdbcTemplate.query("SELECT * FROM area", new BeanPropertyRowMapper<>(Area.class));
+        return jdbcTemplate.query("SELECT * FROM area", new AreaMapper());
     }
 
     public void saveArea(Area area) {
