@@ -1,14 +1,20 @@
 package ua.site.models.crud;
 
-public class Area {
+public class Area implements Display {
     private int id;
     private String region;
-    private Field field;
 
-    public Area(int id, String region, Field field) {
+    public Area(int id, String region) {
         this.id = id;
         this.region = region;
-        this.field = field;
+    }
+
+    @Override
+    public String toString() {
+        return "Area{" +
+                "id=" + id +
+                ", region='" + region + '\'' +
+                '}';
     }
 
     public int getId() {
@@ -27,11 +33,13 @@ public class Area {
         this.region = region;
     }
 
-    public Field getField() {
-        return field;
+    @Override
+    public String getName() {
+        return String.format("Region: %s with id: %d", region, id);
     }
 
-    public void setField(Field field) {
-        this.field = field;
+    @Override
+    public String getObject() {
+        return "area";
     }
 }

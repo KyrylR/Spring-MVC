@@ -1,12 +1,15 @@
 package ua.site.models.crud;
 
-public class Test {
+public class Sample implements Display {
     private int id;
     private double latitude;
     private double longitude;
     private Field field;
 
-    public Test(int id, double latitude, double longitude, Field field) {
+    public Sample() {
+    }
+
+    public Sample(int id, double latitude, double longitude, Field field) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -43,5 +46,26 @@ public class Test {
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+
+    @Override
+    public String getName() {
+        return String.format("Longitude is %.4f and Latitude is %.4f", longitude, latitude);
+    }
+
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", field=" + field +
+                '}';
+    }
+
+    @Override
+    public String getObject() {
+        return "sample";
     }
 }

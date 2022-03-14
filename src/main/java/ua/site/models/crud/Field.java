@@ -3,15 +3,20 @@ package ua.site.models.crud;
 import ua.site.models.crud.Location.Location;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Field {
+public class Field implements Display {
     private int id;
     private String name;
     private Double[] latitude;
     private Double[] longitude;
+    private Area area;
 
-    public Field(int id, String name, Location[] locations) {
+    public Field() {
+    }
+
+    public Field(int id, String name, Location[] locations, Area area) {
         this.id = id;
         this.name = name;
         List<Double> locationListLat = new ArrayList<>();
@@ -22,13 +27,40 @@ public class Field {
         }
         this.latitude = locationListLat.toArray(Double[]::new);
         this.longitude = locationListLon.toArray(Double[]::new);
+        this.area = area;
     }
 
-    public Field(int id, String name, Double[] latitude, Double[] longitude) {
+    public Field(int id, String name, Double[] latitude, Double[] longitude, Area area) {
         this.id = id;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.area = area;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public String display() {
+        return "Field{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", latitude=" + Arrays.toString(latitude) +
+                ", longitude=" + Arrays.toString(longitude) +
+                '}';
     }
 
     public int getId() {
@@ -45,6 +77,11 @@ public class Field {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getObject() {
+        return "field";
     }
 
     public Double[] getLatitude() {
