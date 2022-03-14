@@ -1,149 +1,117 @@
 package ua.site.controllers.crud;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.site.dao.crud.LocationDAO;
-import ua.site.models.crud.Area;
-import ua.site.models.crud.Field;
-import ua.site.models.crud.Test;
-
-import javax.validation.Valid;
+import ua.site.services.ModelService;
 
 @Controller
 @RequestMapping("/locations")
 public class LocationController {
     private final LocationDAO locationDAO;
+    private final ModelService modelService;
 
     @Autowired
-    public LocationController(LocationDAO locationDAO) {
+    public LocationController(LocationDAO locationDAO, ModelService modelService) {
         this.locationDAO = locationDAO;
+        this.modelService = modelService;
     }
 
-//    static public DataSource dataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName("org.postgresql.Driver");
-//        dataSource.setUrl("jdbc:postgresql:///Agriculture");
-//        dataSource.setUsername("postgres");
-//        dataSource.setPassword("password");
-//
-//        return dataSource;
-//    }
-//
-//    private static Double[] arrayOfEmps = {
-//            123.2233,
-//            13243.2243,
-//            7653.2223
-//    };
-//
-//
-//    public static void main(String[] args) {
-////        Location[] locations = readJSONArray("src/main/resources/locations.json");
-////        Field field = new Field(0, "default", locations);
-////        locationDAO.saveField(field);
-//
-//        try {
-//            String url = "jdbc:postgresql:///Agriculture";
-//            Connection conn = DriverManager.getConnection(url, "postgres", "password");
-//            Statement stmt = conn.createStatement();
-//            ResultSet rs;
-//
-//            rs = stmt.executeQuery("SELECT * FROM field");
-//            while (rs.next()) {
-//                String lastName = rs.getString("name");
-//                var lat = rs.getArray("latitude").getArray();
-//                var lon = rs.getArray("longitude").getArray();
-//                System.out.println(lastName);
-//            }
-//            conn.close();
-//        } catch (Exception e) {
-//            System.err.println("Got an exception! ");
-//            System.err.println(e.getMessage());
-//        }
-//    }
+    // ------------ Area block --------------
+    @GetMapping("/areas")
+    public String indexArea(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                            @RequestParam(value = "size", required = false, defaultValue = "10") int size, Model model) {
+        model.addAttribute("objects", modelService.getAreas(pageNumber, size, locationDAO));
+
+        return "crud/location/index";
+    }
+
 
     @GetMapping("/fields")
     public String indexFields(Model model) {
-        model.addAttribute("fields", locationDAO.indexFields());
-        return "crud/people/index";
+        model.addAttribute("objects", locationDAO.indexFields());
+        return "crud/index";
     }
+//
+//    @GetMapping("/areas")
+//    public String indexArea(Model model) {
+//        model.addAttribute("objects", locationDAO.indexAreas());
+//        return "crud/index";
+//    }
+//
+//    @GetMapping("/tests")
+//    public String indexTest(Model model) {
+//        model.addAttribute("objects", locationDAO.indexTests());
+//        return "crud/index";
+//    }
+//
+//    @GetMapping("/field/{id}")
+//    public String showField(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("object", locationDAO.showField(id));
+//        return "crud/location/show";
+//    }
+//
+//    @GetMapping("/area/{id}")
+//    public String showArea(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("object", locationDAO.showArea(id));
+//        return "crud/location/show";
+//    }
+//
+//    @GetMapping("/sample/{id}")
+//    public String showTest(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("object", locationDAO.showTest(id));
+//        return "crud/location/show";
+//    }
 
-    @GetMapping("/areas")
-    public String indexArea(Model model) {
-        model.addAttribute("areas", locationDAO.indexAreas());
-        return "crud/people/index";
-    }
-
-    @GetMapping("/tests")
-    public String indexTest(Model model) {
-        model.addAttribute("tests", locationDAO.indexTests());
-        return "crud/people/index";
-    }
-
-    @GetMapping("/field/{id}")
-    public String showField(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", locationDAO.showField(id));
-        return "crud/people/show";
-    }
-
-    @GetMapping("/area/{id}")
-    public String showArea(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", locationDAO.showArea(id));
-        return "crud/people/show";
-    }
-
-    @GetMapping("/test/{id}")
-    public String showTest(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", locationDAO.showTest(id));
-        return "crud/people/show";
-    }
-
-    @GetMapping("/newField")
-    public String newField(@ModelAttribute("person") Field field) {
-        return "crud/people/newField";
-    }
-
-    @PostMapping()
-    public String createField(@ModelAttribute("person") @Valid Field field,
-                              BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "crud/people/newField";
-
-        locationDAO.saveField(field);
-        return "redirect:/people";
-    }
-
-    @GetMapping("/newArea")
-    public String newArea(@ModelAttribute("person") Area area) {
-        return "crud/people/newArea";
-    }
-
-    @PostMapping()
-    public String createArea(@ModelAttribute("person") @Valid Area area,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "crud/people/newArea";
-
-        locationDAO.saveArea(area);
-        return "redirect:/people";
-    }
-
-    @GetMapping("/newTest")
-    public String newTest(@ModelAttribute("person") Test test) {
-        return "crud/people/newTest";
-    }
-
-    @PostMapping()
-    public String createTest(@ModelAttribute("person") @Valid Test test,
-                             BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "crud/people/newTest";
-
-        locationDAO.saveTest(test);
-        return "redirect:/people";
-    }
+//    @GetMapping("/newField")
+//    public String newField(@ModelAttribute("person") Field field) {
+//        return "crud/people/newField";
+//    }
+//
+//    @PostMapping()
+//    public String createField(@ModelAttribute("person") @Valid Field field,
+//                              BindingResult bindingResult) {
+//        if (bindingResult.hasErrors())
+//            return "crud/people/newField";
+//
+//        locationDAO.saveField(field);
+//        return "redirect:/people";
+//    }
+//
+//    @GetMapping("/newArea")
+//    public String newArea(@ModelAttribute("person") Area area) {
+//        return "crud/people/newArea";
+//    }
+//
+//    @PostMapping()
+//    public String createArea(@ModelAttribute("person") @Valid Area area,
+//                             BindingResult bindingResult) {
+//        if (bindingResult.hasErrors())
+//            return "crud/people/newArea";
+//
+//        locationDAO.saveArea(area);
+//        return "redirect:/people";
+//    }
+//
+//    @GetMapping("/newTest")
+//    public String newTest(@ModelAttribute("person") Sample sample) {
+//        return "crud/people/newTest";
+//    }
+//
+//    @PostMapping()
+//    public String createTest(@ModelAttribute("person") @Valid Sample sample,
+//                             BindingResult bindingResult) {
+//        if (bindingResult.hasErrors())
+//            return "crud/people/newTest";
+//
+//        locationDAO.saveTest(sample);
+//        return "redirect:/people";
+//    }
 
 //    @GetMapping("/{id}/edit")
 //    public String edit(Model model,
