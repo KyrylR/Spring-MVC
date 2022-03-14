@@ -12,9 +12,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ModelService {
-    public ModelService() {
-    }
-
     // ------------ Area block --------------
     public Paged<Area> getAreas(int pageNumber, int size, LocationDAO locationDAO) {
         List<Area> areas = locationDAO.indexAreas();

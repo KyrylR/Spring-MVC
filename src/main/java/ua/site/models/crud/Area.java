@@ -4,6 +4,9 @@ public class Area implements Display {
     private int id;
     private String region;
 
+    public Area() {
+    }
+
     public Area(int id, String region) {
         this.id = id;
         this.region = region;
