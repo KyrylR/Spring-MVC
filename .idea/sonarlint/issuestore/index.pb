@@ -11,12 +11,8 @@ d
 4src/main/webapp/WEB-INF/views/crud/people/index.html,6\5\657c124d184ec20be7ebd74534697b65be303b84
 `
 0src/test/java/ua/site/Location/LocationTest.java,9\c\9c7bea449837fbb1629d3d805d867569d77105de
-^
-.src/main/java/ua/site/models/crud/Display.java,d\2\d22457c86771127216fc7ff9b16d0d78e4123309
 b
 2src/main/webapp/WEB-INF/views/crud/people/new.html,9\2\92b96f32762b348a87c917bfe73f77ba1cd860fe
-d
-4src/main/webapp/WEB-INF/views/crud/location/new.html,f\6\f62acf594ea5608fef3c5840744b2ffcb9af5aef
 b
 2src/main/java/ua/site/models/crud/Paging/Page.java,b\d\bdbe374205f41c24728601495115179848cfb81b
 f
@@ -29,3 +25,12 @@ d
 4src/main/java/ua/site/models/crud/Paging/Paging.java,e\c\ec83933538febc8e18ca7633b5a82696d7527fbc
 c
 3src/main/webapp/WEB-INF/views/crud/people/edit.html,f\c\fc5542360916c378b729a4f6a82e7bacc6408fe7
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+]
+-src/main/java/ua/site/models/crud/Person.java,c\3\c34632d67e5f5f0cfdaec3739bab0d23e26251a7
+^
+.src/main/java/ua/site/models/crud/Display.java,d\2\d22457c86771127216fc7ff9b16d0d78e4123309
+e
+5src/main/webapp/WEB-INF/views/crud/location/show.html,4\b\4baefb0c0dd431a3937dcb81dfdb590b907b7a74
