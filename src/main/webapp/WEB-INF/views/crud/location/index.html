@@ -4,44 +4,15 @@
     <meta charset="UTF-8"/>
     <title>Content Table</title>
 
-    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" type="text/css" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}"/>
 </head>
 <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">Thymeleaf - Bootstrap Table</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-10 mt-5 mb-5">
-            <table id="example" class="table table-bordered" style="width: 100%">
+            <!-- style="width: 100%" -->
+            <table id="example" class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -50,8 +21,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="object : ${objects.page.content}">
-                    <td th:text="${object.getId()}">Name</td>
-                    <td th:text="${object.getRegion()}">Name</td>
+                    <td th:text="${object.getId()}">Id</td>
+                    <td th:text="${object.getRegion()}">Region</td>
                 </tr>
                 </tbody>
             </table>
