@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Person</title>
+    <meta charset="UTF-8"/>
+    <title>Content Detail</title>
 </head>
 <body>
+<h1>--Details--</h1>
 
 <div th:switch="${object.getObject()}">
     <div th:case="'field'">
-        <p th:text="Field ID: ${object.getId()}"></p>
-        <p th:text="Field Name: ${object.getName()}"></p>
-        <p th:text="Field Latitudes: ${object.getLatitude()}"></p>
-        <p th:text="Field Longitudes: ${object.getLongitude()}"></p>
-        <p th:text="Field from Area with ID: ${object.getArea().display()}"></p>
+        <h4>Field ID</h4>
+        <p th:text="${object.getId()}"></p>
+        <h4>Field Name</h4>
+        <p th:text="${object.getName()}"></p>
+        <h4>Field Latitudes</h4>
+        <p th:text="${object.getLatitudeStr()}"></p>
+        <h4>Field Longitudes</h4>
+        <p th:text="${object.getLongitudeStr()}"></p>
+        <h4>Field from Area with ID</h4>
+        <p th:text="${object.getArea().getId()}"></p>
     </div>
     <div th:case="'sample'">
-        <p th:text="Sample ID: ${object.getId()}"></p>
-        <p th:text="Sample Latitude: ${object.getLatitude()}"></p>
-        <p th:text="Sample Longitude: ${object.getLongitude()}"></p>
-        <p th:text="Sample from Field with ID: ${object.getField().display()}"></p>
+        <h4>Sample ID</h4>
+        <p th:text="${object.getId()}"></p>
+        <h4>Sample Latitude</h4>
+        <p th:text="${object.getLatitude()}"></p>
+        <h4>Sample Longitude</h4>
+        <p th:text="${object.getLongitude()}"></p>
+        <h4>Sample from Field with ID</h4>
+        <p th:text="${object.getField().getId()}"></p>
     </div>
     <div th:case="'area'">
-        <p th:text="Area ID: ${object.getId()}"></p>
-        <p th:text="Area Region: ${object.getRegion()}"></p>
+        <h4>Area ID</h4>
+        <p th:text="${object.getId()}"></p>
+        <h4>Area Region</h4>
+        <p th:text="${object.getRegion()}"></p>
     </div>
 </div>
 
-<p th:text="${object.toString()}"></p>
 
 <!--<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit!</a>-->
 
-<!--<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">-->
-<!--    <button type="submit">Delete!</button>-->
-<!--</form>-->
+
+<form th:method="DELETE"
+      th:action="@{/locations/{obj_name}/{id}(id=${object.getId()}, obj_name=${object.getObject()})}">
+    <button type="submit">Delete!</button>
+</form>
 </body>
 </html>

@@ -15,14 +15,55 @@
             <table id="example" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Region</th>
+                    <div th:switch="${objects.page.content[0].getObject()}">
+                        <div th:case="'field'">
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Latitudes</th>
+                            <th>Longitudes</th>
+                            <th>AreaID</th>
+                        </div>
+                        <div th:case="'sample'">
+                            <th>Id</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>FieldID</th>
+                        </div>
+                        <div th:case="'area'">
+                            <th>Id</th>
+                            <th>Region</th>
+                        </div>
+                    </div>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="object : ${objects.page.content}">
-                    <td th:text="${object.getId()}">Id</td>
-                    <td th:text="${object.getRegion()}">Region</td>
+                    <div th:switch="${object.getObject()}">
+                        <div th:case="'field'">
+                            <td>
+                                <a th:href="@{/locations/field/{id}(id=${object.getId()})}" th:text="${object.getId()}">Id</a>
+                            </td>
+                            <td th:text="${object.getName()}">Name</td>
+                            <td th:text="${object.getLatitudeStr()}">Latitudes</td>
+                            <td th:text="${object.getLongitudeStr()}">Longitudes</td>
+                            <td th:text="${object.getArea().getId()}">AreaID</td>
+                        </div>
+                        <div th:case="'sample'">
+                            <td>
+                                <a th:href="@{/locations/sample/{id}(id=${object.getId()})}"
+                                   th:text="${object.getId()}">Id</a>
+                            </td>
+                            <td th:text="${object.getLatitude()}">Latitude</td>
+                            <td th:text="${object.getLongitude()}">Longitudes</td>
+                            <td th:text="${object.getField().getId()}">FieldID</td>
+                        </div>
+                        <div th:case="'area'">
+                            <td>
+                                <a th:href="@{/locations/area/{id}(id=${object.getId()})}" th:text="${object.getId()}">Id</a>
+                            </td>
+                            <td th:text="${object.getRegion()}">Region</td>
+                        </div>
+                    </div>
                 </tr>
                 </tbody>
             </table>
