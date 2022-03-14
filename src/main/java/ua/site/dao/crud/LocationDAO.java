@@ -3,6 +3,8 @@ package ua.site.dao.crud;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ua.site.dao.crud.Mappers.AreaMapper;
+import ua.site.dao.crud.Mappers.FieldMapper;
+import ua.site.dao.crud.Mappers.SampleMapper;
 import ua.site.models.crud.Area;
 import ua.site.models.crud.Field;
 import ua.site.models.crud.Sample;
@@ -18,8 +20,13 @@ public class LocationDAO {
     }
 
     // ------------ Area block --------------
-    public List<Area> indexAreas() {
+    public List<Area> indexArea() {
         return jdbcTemplate.query("SELECT * FROM area", new AreaMapper());
+    }
+
+    public Area showArea(int id) {
+        return jdbcTemplate.query("SELECT * FROM area WHERE id=?", new Object[]{id}, new AreaMapper())
+                .stream().findAny().orElse(null);
     }
 
     public void saveArea(Area area) {
@@ -27,69 +34,60 @@ public class LocationDAO {
                 area.getRegion());
     }
 
-    public void update(int id, Area updatedArea) {
+    public void updateArea(int id, Area updatedArea) {
         jdbcTemplate.update("UPDATE area SET region=? WHERE id=?", updatedArea.getRegion(), id);
     }
 
-    public void delete(int id) {
+    public void deleteArea(int id) {
         jdbcTemplate.update("DELETE FROM area WHERE id=?", id);
     }
 
-
-    public List<Field> indexFields() {
-        return jdbcTemplate.query("SELECT * FROM field", (rs, rowNum) -> {
-            Field field = new Field();
-            field.setId(rs.getInt("id"));
-            field.setName(rs.getString("name"));
-            field.setLatitude((Double[]) rs.getArray("latitude").getArray());
-            field.setLongitude((Double[]) rs.getArray("longitude").getArray());
-            return field;
-        });
+    // ------------ Field block --------------
+    public List<Field> indexField() {
+        return jdbcTemplate.query("SELECT * FROM field", new FieldMapper(jdbcTemplate));
     }
 
-    public List<Sample> indexTests() {
-        return jdbcTemplate.query("SELECT * FROM test", (rs, rowNum) -> {
-            Sample sample = new Sample();
-            sample.setId(rs.getInt("id"));
-            sample.setLatitude(rs.getDouble("latitude"));
-            sample.setLongitude(rs.getDouble("longitude"));
-            sample.setField(new Field());
-            return sample;
-        });
+    public Field showField(int id) {
+        return jdbcTemplate.query("SELECT * FROM field WHERE id=?", new Object[]{id}, new FieldMapper(jdbcTemplate))
+                .stream().findAny().orElse(null);
     }
 
     public void saveField(Field field) {
-        jdbcTemplate.update("INSERT INTO field (name, latitude, longitude) VALUES(?, ?, ?)", field.getName(),
-                field.getLatitude(), field.getLongitude());
+        jdbcTemplate.update("INSERT INTO field (name, latitudes, longitudes, area_id) VALUES(?, ?, ?, (SELECT id from area WHERE id=?))", field.getName(),
+                field.getLatitude(), field.getLongitude(), field.getArea().getId());
     }
 
-    public void saveTest(Sample sample) {
-        jdbcTemplate.update("INSERT INTO test (latitude, longitude, fk_field) VALUES(?, ?, (SELECT id from field WHERE id=?))",
+    public void updateField(int id, Field updatedField) {
+        jdbcTemplate.update("UPDATE area SET name=? WHERE id=?", updatedField.getName(), id);
+    }
+
+    public void deleteField(int id) {
+        jdbcTemplate.update("DELETE FROM field WHERE id=?", id);
+    }
+
+    // ------------ Sample block --------------
+    public List<Sample> indexSample() {
+        return jdbcTemplate.query("SELECT * FROM test", new SampleMapper(jdbcTemplate));
+    }
+
+
+    public Sample showTest(int id) {
+        return jdbcTemplate.query("SELECT * FROM test WHERE id=?", new Object[]{id}, new SampleMapper(jdbcTemplate))
+                .stream().findAny().orElse(null);
+    }
+
+    public void saveSample(Sample sample) {
+        jdbcTemplate.update("INSERT INTO test (latitude, longitude, field_id) VALUES(?, ?, (SELECT id from field WHERE id=?))",
                 sample.getLatitude(), sample.getLongitude(), sample.getField().getId());
     }
 
-    //    public Field showField(int id) {
-//        return jdbcTemplate.query("SELECT * FROM field WHERE id=?", new Object[]{id}, (rs, rowNum) -> {
-//                            Field field = new Field();
-//                            field.setId(rs.getInt("id"));
-//                            field.setName(rs.getString("name"));
-//                            field.setLatitude((Double[]) rs.getArray("latitude").getArray());
-//                            field.setLongitude((Double[]) rs.getArray("longitude").getArray());
-//                            return field;
-//                        })
-//                .stream().findAny().orElse(null);
-//    }
-//
-//    public Area showArea(int id) {
-//        return jdbcTemplate.query("SELECT * FROM area WHERE id=?", new Object[]{id},
-//                        new BeanPropertyRowMapper<>(Area.class))
-//                .stream().findAny().orElse(null);
-//    }
-//
-//    public Sample showTest(int id) {
-//        return jdbcTemplate.query("SELECT * FROM test WHERE id=?", new Object[]{id},
-//                        new BeanPropertyRowMapper<>(Sample.class))
-//                .stream().findAny().orElse(null);
-//    }
+    public void updateSample(int id, Sample updatedSample) {
+        jdbcTemplate.update("UPDATE area SET field_id=? WHERE id=?", updatedSample.getField().getId(), id);
+    }
+
+    public void deleteSample(int id) {
+        jdbcTemplate.update("DELETE FROM test WHERE id=?", id);
+    }
+
 
 }
