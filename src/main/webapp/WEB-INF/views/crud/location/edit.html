@@ -172,12 +172,13 @@
         }
 
     </style>
-    <title>New Form</title>
+    <title>Edit Form</title>
 </head>
 
 <body>
 <div class="container">
-    <form class="form" th:method="POST" th:action="@{/locations/{obj_name}(obj_name=${model_obj.getObject()})}"
+    <form class="form" th:method="PATCH"
+          th:action="@{/locations/{obj_name}/{id}(obj_name=${model_obj.getObject()}, id=${model_obj.getId()})}"
           th:object="${model_obj}">
         <div th:if="${model_obj.getObject() == 'area'}" class="form-control">
             <label for="region">Enter region: </label>
@@ -188,27 +189,11 @@
             <input autocomplete="off" type="text" id="name" placeholder="Enter name" th:field="*{name}">
         </div>
         <div th:if="${model_obj.getObject() == 'field'}" class="form-control">
-            <label for="latitudes">Latitudes</label>
-            <input autocomplete="off" type="text" id="latitudes" placeholder="Enter latitude" th:field="*{latitude}">
-        </div>
-        <div th:if="${model_obj.getObject() == 'field'}" class="form-control">
-            <label for="longitudes">Longitudes</label>
-            <input autocomplete="off" type="text" id="longitudes" placeholder="Enter longitude" th:field="*{longitude}">
-        </div>
-        <div th:if="${model_obj.getObject() == 'field'}" class="form-control">
             <label for="areasID">Area</label>
             <select id="areasID" th:field="*{areaId}" class="select">
                 <option th:each="option : ${options}" th:value="${option.getId()}" th:text="${option.toString()}">
                 </option>
             </select>
-        </div>
-        <div th:if="${model_obj.getObject() == 'sample'}" class="form-control">
-            <label for="latitudes">Latitude</label>
-            <input autocomplete="off" type="text" id="latitude" placeholder="Enter latitude" th:field="*{latitude}">
-        </div>
-        <div th:if="${model_obj.getObject() == 'sample'}" class="form-control">
-            <label for="longitudes">Longitude</label>
-            <input autocomplete="off" type="text" id="longitude" placeholder="Enter longitude" th:field="*{longitude}">
         </div>
         <div th:if="${model_obj.getObject() == 'sample'}" class="form-control">
             <label for="areasID_region">Area</label>
