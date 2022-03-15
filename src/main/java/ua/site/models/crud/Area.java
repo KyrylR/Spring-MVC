@@ -1,7 +1,12 @@
 package ua.site.models.crud;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Area implements Display {
     private int id;
+    @NotEmpty(message = "The Region parameter cannot be empty")
+    @Size(min = 5, max = 16, message = "The Region parameter can be from 5 to 16 characters")
     private String region;
 
     public Area() {

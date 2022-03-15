@@ -1,10 +1,20 @@
 package ua.site.models.crud;
 
+import ua.site.validation.SampleValueMatch;
+
+@SampleValueMatch.List({
+        @SampleValueMatch(
+                field = "latitude",
+                fieldMatch = "longitude"
+        )
+})
 public class Sample implements Display {
     private int id;
     private double latitude;
     private double longitude;
     private Field field;
+
+    private int areaId;
 
     public Sample() {
     }
@@ -14,6 +24,7 @@ public class Sample implements Display {
         this.latitude = latitude;
         this.longitude = longitude;
         this.field = field;
+        this.areaId = field.getId();
     }
 
     public int getId() {
@@ -46,6 +57,7 @@ public class Sample implements Display {
 
     public void setField(Field field) {
         this.field = field;
+        this.areaId = field.getId();
     }
 
 
@@ -67,5 +79,13 @@ public class Sample implements Display {
     @Override
     public String getObject() {
         return "sample";
+    }
+
+    public int getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
     }
 }

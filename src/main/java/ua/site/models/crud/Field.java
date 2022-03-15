@@ -1,19 +1,35 @@
 package ua.site.models.crud;
 
 import ua.site.models.crud.Location.Location;
+import ua.site.validation.FieldsValueMatch;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@FieldsValueMatch.List({
+        @FieldsValueMatch(
+                field = "latitude",
+                fieldMatch = "longitude",
+                message = "Longitude and latitude must be the same size"
+        )
+})
 public class Field implements Display {
     private int id;
+    @NotEmpty(message = "The Name parameter cannot be empty")
+    @Size(min = 5, max = 16, message = "The Name parameter can be from 5 to 16 characters")
     private String name;
     private Double[] latitude;
     private Double[] longitude;
     private Area area;
 
+    private int areaId;
+
     public Field() {
+        latitude = new ArrayList<Double>(1).toArray(Double[]::new);
+        longitude = new ArrayList<Double>(1).toArray(Double[]::new);
     }
 
     public Field(int id, String name, Location[] locations, Area area) {
@@ -28,6 +44,7 @@ public class Field implements Display {
         this.latitude = locationListLat.toArray(Double[]::new);
         this.longitude = locationListLon.toArray(Double[]::new);
         this.area = area;
+        this.areaId = area.getId();
     }
 
     public Field(int id, String name, Double[] latitude, Double[] longitude, Area area) {
@@ -36,6 +53,7 @@ public class Field implements Display {
         this.latitude = latitude;
         this.longitude = longitude;
         this.area = area;
+        this.areaId = area.getId();
     }
 
     public Area getArea() {
@@ -88,23 +106,31 @@ public class Field implements Display {
         return latitude;
     }
 
-    public String getLatitudeStr() {
-        return Arrays.toString(latitude);
-    }
-
     public void setLatitude(Double[] latitude) {
         this.latitude = latitude;
+    }
+
+    public String getLatitudeStr() {
+        return Arrays.toString(latitude);
     }
 
     public Double[] getLongitude() {
         return longitude;
     }
 
+    public void setLongitude(Double[] longitude) {
+        this.longitude = longitude;
+    }
+
     public String getLongitudeStr() {
         return Arrays.toString(longitude);
     }
 
-    public void setLongitude(Double[] longitude) {
-        this.longitude = longitude;
+    public int getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
     }
 }
