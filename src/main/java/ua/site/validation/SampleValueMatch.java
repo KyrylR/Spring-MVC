@@ -22,9 +22,11 @@ public @interface SampleValueMatch {
 
     Class<? extends Payload>[] payload() default {};
 
-    String field();
+    String lon();
 
-    String fieldMatch();
+    String lan();
+
+    String depth();
 
     @Target({TYPE})
     @Retention(RetentionPolicy.RUNTIME)

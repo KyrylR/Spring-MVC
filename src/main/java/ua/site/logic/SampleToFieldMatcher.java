@@ -16,9 +16,9 @@ public class SampleToFieldMatcher {
             List<Location> locations = new ArrayList<>();
             String possibleRegion = field.getArea().getRegion();
             for (int i = 0; i < lat.length; i++) {
-                locations.add(new Location(possibleRegion, lat[i], lon[i]));
+                locations.add(new Location(possibleRegion, lat[i], lon[i], sample.getDepth()));
             }
-            Location test = new Location(possibleRegion, sample.getLatitude(), sample.getLongitude());
+            Location test = new Location(possibleRegion, sample.getLatitude(), sample.getLongitude(), sample.getDepth());
             var temp = locations.toArray(new Location[0]);
             boolean res = PointLocation.isInside(test, temp);
             if (res) {

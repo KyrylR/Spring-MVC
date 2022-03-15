@@ -176,6 +176,7 @@ public class LocationController {
 
     @GetMapping("/sample/{id}")
     public String showTest(@PathVariable("id") int id, Model model) {
+        var test = locationDAO.showSample(id);
         model.addAttribute("object", locationDAO.showSample(id));
         return SHOW_MODEL_PAGE;
     }

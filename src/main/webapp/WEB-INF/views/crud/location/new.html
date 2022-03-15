@@ -211,6 +211,10 @@
             <input autocomplete="off" type="text" id="longitude" placeholder="Enter longitude" th:field="*{longitude}">
         </div>
         <div th:if="${model_obj.getObject() == 'sample'}" class="form-control">
+            <label for="depth">Depth</label>
+            <input autocomplete="off" type="text" id="depth" placeholder="Enter longitude" th:field="*{depth}">
+        </div>
+        <div th:if="${model_obj.getObject() == 'sample'}" class="form-control">
             <label for="areasID_region">Area</label>
             <select id="areasID_region" th:field="*{areaId}" class="select">
                 <option th:each="option : ${options}" th:value="${option.getId()}" th:text="${option.toString()}">

@@ -21,6 +21,7 @@ public class SampleMapper implements RowMapper<Sample> {
         sample.setId(rs.getInt("id"));
         sample.setLatitude(rs.getDouble("latitude"));
         sample.setLongitude(rs.getDouble("longitude"));
+        sample.setDepth(rs.getDouble("depth"));
         int fieldId = rs.getInt("field_id");
         Field field = jdbcTemplate.query("SELECT * FROM field WHERE id=?",
                 new Object[]{fieldId},

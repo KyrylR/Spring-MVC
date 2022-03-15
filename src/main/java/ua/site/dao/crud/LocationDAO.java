@@ -86,8 +86,8 @@ public class LocationDAO {
     }
 
     public void saveSample(Sample sample) {
-        jdbcTemplate.update("INSERT INTO test (latitude, longitude, field_id) VALUES(?, ?, (SELECT id from field WHERE id=?))",
-                sample.getLatitude(), sample.getLongitude(), sample.getField().getId());
+        jdbcTemplate.update("INSERT INTO test (latitude, longitude, depth, field_id) VALUES(?, ?, ?, (SELECT id from field WHERE id=?))",
+                sample.getLatitude(), sample.getLongitude(), sample.getDepth(), sample.getField().getId());
     }
 
     public void updateSample(int id, Sample updatedSample) {

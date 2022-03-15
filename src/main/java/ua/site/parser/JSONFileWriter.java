@@ -9,11 +9,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class JSONFileWriter {
-    private static final Location[] locations = new Location[]{new Location("Zero", 50.48369154202233, 30.538139814108778),
-            new Location("First", 50.48371586973436, 30.546092325408594),
-            new Location("Second", 50.47824181893395, 30.54429536372065),
-            new Location("Third", 50.47816882730685, 30.53664871824006),
-            new Location("Fourth", 50.48135602335844, 30.541236705528412)};
+    private static final Location[] locations = new Location[]{new Location("Zero", 50.48369154202233, 30.538139814108778, 0),
+            new Location("First", 50.48371586973436, 30.546092325408594, 0),
+            new Location("Second", 50.47824181893395, 30.54429536372065, 0),
+            new Location("Third", 50.47816882730685, 30.53664871824006, 0),
+            new Location("Fourth", 50.48135602335844, 30.541236705528412, 0)};
 
     static public void writeObjsToFile(Location[] locations) {
 

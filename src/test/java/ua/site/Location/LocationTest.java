@@ -14,8 +14,8 @@ class LocationTest {
      */
     @Test
     void shouldShowSimpleAssertion() {
-        Location loc1 = new Location("First", 55.177771, -13.25572);
-        Location loc2 = new Location("Second", 55.18629, -13.31715);
+        Location loc1 = new Location("First", 55.177771, -13.25572, 0);
+        Location loc2 = new Location("Second", 55.18629, -13.31715, 0);
         double distance = (double) Math.round(loc1.distanceTo(loc2) * 1000) / 1000;
         Assertions.assertEquals(4.014, distance);
     }

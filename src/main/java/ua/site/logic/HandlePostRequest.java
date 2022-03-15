@@ -15,12 +15,13 @@ public class HandlePostRequest {
             String region = location.getRegion();
             double lon = location.getX();
             double lat = location.getY();
+            double depth = location.getDepth();
             Area area = locationDAO.findAreaByRegion(region);
             if (area == null) {
                 result.append("Location with region: '").append(region).append("' skipped, no such region in DB!\n");
                 continue;
             }
-            Sample sample = new Sample(lat, lon, area.getId());
+            Sample sample = new Sample(lat, lon, depth, area.getId());
             List<Field> fields = locationDAO.findFieldByAreaId(sample.getAreaId());
             Field field = SampleToFieldMatcher.match(fields, sample);
             if (field == null) {

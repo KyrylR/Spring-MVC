@@ -35,8 +35,9 @@ public class JSONStringParser {
             String region = (String) location.get("region");
             double lon = (double) location.get("longitude");
             double lat = (double) location.get("latitude");
+            Long depth = (Long) location.get("depth");
 
-            locationList.add(new Location(region, lat, lon));
+            locationList.add(new Location(region, lat, lon, depth.doubleValue()));
         }
 
         return locationList.toArray(Location[]::new);

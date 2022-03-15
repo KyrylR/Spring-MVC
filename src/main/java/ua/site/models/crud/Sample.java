@@ -4,14 +4,16 @@ import ua.site.validation.SampleValueMatch;
 
 @SampleValueMatch.List({
         @SampleValueMatch(
-                field = "latitude",
-                fieldMatch = "longitude"
+                lon = "latitude",
+                lan = "longitude",
+                depth = "depth"
         )
 })
 public class Sample implements Display {
     private int id;
     private double latitude;
     private double longitude;
+    private double depth;
     private Field field;
 
     private int areaId;
@@ -19,17 +21,19 @@ public class Sample implements Display {
     public Sample() {
     }
 
-    public Sample(int id, double latitude, double longitude, Field field) {
+    public Sample(int id, double latitude, double longitude, double depth, Field field) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.depth = depth;
         this.field = field;
         this.areaId = field.getId();
     }
 
-    public Sample(double latitude, double longitude, int areaId) {
+    public Sample(double latitude, double longitude, double depth, int areaId) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.depth = depth;
         this.areaId = areaId;
     }
 
@@ -93,5 +97,13 @@ public class Sample implements Display {
 
     public void setAreaId(int areaId) {
         this.areaId = areaId;
+    }
+
+    public double getDepth() {
+        return depth;
+    }
+
+    public void setDepth(double depth) {
+        this.depth = depth;
     }
 }

@@ -10,21 +10,25 @@ public class SampleValueMatchValidator
 
     private String lat;
     private String lon;
+    private String depth;
 
     public void initialize(SampleValueMatch constraintAnnotation) {
-        this.lat = constraintAnnotation.field();
-        this.lon = constraintAnnotation.fieldMatch();
+        this.lat = constraintAnnotation.lon();
+        this.lon = constraintAnnotation.lan();
+        this.depth = constraintAnnotation.depth();
     }
 
     public boolean isValid(Object value,
                            ConstraintValidatorContext context) {
         try {
-            Double fieldValue = (Double) new BeanWrapperImpl(value)
-                    .getPropertyValue(lat);
-            Double fieldMatchValue = (Double) new BeanWrapperImpl(value)
-                    .getPropertyValue(lon);
+            Double lat = (Double) new BeanWrapperImpl(value)
+                    .getPropertyValue(this.lat);
+            Double lon = (Double) new BeanWrapperImpl(value)
+                    .getPropertyValue(this.lon);
+            Double depth = (Double) new BeanWrapperImpl(value)
+                    .getPropertyValue(this.depth);
 
-            if (fieldValue != null && fieldMatchValue != null)
+            if (lat != null && lon != null && depth != null)
                 return true;
         } catch (Exception ex) {
             return false;

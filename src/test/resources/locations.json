@@ -2,26 +2,31 @@
   {
     "latitude": 50.48369154202233,
     "region": "Zero",
-    "longitude": 30.538139814108778
+    "longitude": 30.538139814108778,
+    "depth": 45
   },
   {
-    "latitude": 50.48371586973436,
+    "latitude": 50.48221547015584,
     "region": "First",
-    "longitude": 30.546092325408594
+    "longitude": 30.543817885369943,
+    "depth": 45
   },
   {
     "latitude": 50.47824181893395,
     "region": "Second",
-    "longitude": 30.54429536372065
+    "longitude": 30.54429536372065,
+    "depth": 45
   },
   {
-    "latitude": 50.47816882730685,
-    "region": "Third",
-    "longitude": 30.53664871824006
+    "latitude": 50.48135602335844,
+    "region": "First",
+    "longitude": 30.541236705528412,
+    "depth": 40
   },
   {
     "latitude": 50.48135602335844,
     "region": "Fourth",
-    "longitude": 30.541236705528412
+    "longitude": 30.541236705528412,
+    "depth": 45
   }
 ]

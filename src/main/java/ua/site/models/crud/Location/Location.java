@@ -4,6 +4,7 @@ public class Location {
     private final String region;
     private final double longitude;
     private final double latitude;
+    private final double depth;
 
     public String getRegion() {
         return region;
@@ -30,11 +31,13 @@ public class Location {
      * @param region    - The region in which the point was obtained
      * @param latitude  - Latitude is the measurement of distance north or south of the Equator.
      * @param longitude - Longitude is the measurement east or west of the prime meridian.
+     * @param depth
      */
-    public Location(String region, double latitude, double longitude) {
+    public Location(String region, double latitude, double longitude, double depth) {
         this.region = region;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.depth = depth;
     }
 
     /**
@@ -70,5 +73,9 @@ public class Location {
      */
     public String toString() {
         return region + " (" + latitude + ", " + longitude + ")";
+    }
+
+    public double getDepth() {
+        return depth;
     }
 }
