@@ -4,9 +4,7 @@ package ua.site.controllers.crud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.site.dao.crud.LocationDAO;
 import ua.site.services.ModelService;
 
@@ -16,11 +14,16 @@ public class LocationController {
     private final LocationDAO locationDAO;
     private final ModelService modelService;
 
+    private static final String MAIN_MODEL_PAGE = "crud/location/index";
+    private static final String SHOW_MODEL_PAGE = "crud/location/show";
+
     @Autowired
     public LocationController(LocationDAO locationDAO, ModelService modelService) {
         this.locationDAO = locationDAO;
         this.modelService = modelService;
     }
+
+    // ------------ General block --------------
 
     // ------------ Area block --------------
     @GetMapping("/areas")
@@ -28,45 +31,62 @@ public class LocationController {
                             @RequestParam(value = "size", required = false, defaultValue = "10") int size, Model model) {
         model.addAttribute("objects", modelService.getAreas(pageNumber, size, locationDAO));
 
-        return "crud/location/index";
+        return MAIN_MODEL_PAGE;
     }
 
+    @GetMapping("/area/{id}")
+    public String showArea(@PathVariable("id") int id, Model model) {
+        model.addAttribute("object", locationDAO.showArea(id));
+        return SHOW_MODEL_PAGE;
+    }
 
+    @DeleteMapping("/area/{id}")
+    public String deleteArea(@PathVariable("id") int id) {
+        locationDAO.deleteArea(id);
+        return "redirect:/locations/areas";
+    }
+
+    // ------------ Field block --------------
     @GetMapping("/fields")
-    public String indexFields(Model model) {
-        model.addAttribute("objects", locationDAO.indexFields());
-        return "crud/index";
+    public String indexField(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                             @RequestParam(value = "size", required = false, defaultValue = "10") int size, Model model) {
+        model.addAttribute("objects", modelService.getFields(pageNumber, size, locationDAO));
+
+        return MAIN_MODEL_PAGE;
     }
-//
-//    @GetMapping("/areas")
-//    public String indexArea(Model model) {
-//        model.addAttribute("objects", locationDAO.indexAreas());
-//        return "crud/index";
-//    }
-//
-//    @GetMapping("/tests")
-//    public String indexTest(Model model) {
-//        model.addAttribute("objects", locationDAO.indexTests());
-//        return "crud/index";
-//    }
-//
-//    @GetMapping("/field/{id}")
-//    public String showField(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("object", locationDAO.showField(id));
-//        return "crud/location/show";
-//    }
-//
-//    @GetMapping("/area/{id}")
-//    public String showArea(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("object", locationDAO.showArea(id));
-//        return "crud/location/show";
-//    }
-//
-//    @GetMapping("/sample/{id}")
-//    public String showTest(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("object", locationDAO.showTest(id));
-//        return "crud/location/show";
-//    }
+
+    @GetMapping("/field/{id}")
+    public String showField(@PathVariable("id") int id, Model model) {
+        model.addAttribute("object", locationDAO.showField(id));
+        return SHOW_MODEL_PAGE;
+    }
+
+    @DeleteMapping("/field/{id}")
+    public String deleteField(@PathVariable("id") int id) {
+        locationDAO.deleteField(id);
+        return "redirect:/locations/fields";
+    }
+
+    // ------------ Sample block --------------
+    @GetMapping("/samples")
+    public String indexSample(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                              @RequestParam(value = "size", required = false, defaultValue = "10") int size, Model model) {
+        model.addAttribute("objects", modelService.getSamples(pageNumber, size, locationDAO));
+
+        return MAIN_MODEL_PAGE;
+    }
+
+    @GetMapping("/sample/{id}")
+    public String showTest(@PathVariable("id") int id, Model model) {
+        model.addAttribute("object", locationDAO.showTest(id));
+        return SHOW_MODEL_PAGE;
+    }
+
+    @DeleteMapping("/sample/{id}")
+    public String deleteSample(@PathVariable("id") int id) {
+        locationDAO.deleteSample(id);
+        return "redirect:/locations/samples";
+    }
 
 //    @GetMapping("/newField")
 //    public String newField(@ModelAttribute("person") Field field) {
@@ -130,9 +150,5 @@ public class LocationController {
 //        return "redirect:/people";
 //    }
 //
-//    @DeleteMapping("/{id}")
-//    public String delete(@PathVariable("id") int id) {
-//        locationDAO.delete(id);
-//        return "redirect:/people";
-//    }
+
 }
