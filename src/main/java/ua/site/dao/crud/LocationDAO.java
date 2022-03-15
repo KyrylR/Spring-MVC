@@ -24,6 +24,11 @@ public class LocationDAO {
         return jdbcTemplate.query("SELECT * FROM area", new AreaMapper());
     }
 
+    public Area findAreaByRegion(String region) {
+        return jdbcTemplate.query("SELECT * FROM area WHERE region=?", new Object[]{region}, new AreaMapper())
+                .stream().findAny().orElse(null);
+    }
+
     public Area showArea(int id) {
         return jdbcTemplate.query("SELECT * FROM area WHERE id=?", new Object[]{id}, new AreaMapper())
                 .stream().findAny().orElse(null);
