@@ -1,5 +1,6 @@
 package ua.site.parser;
 
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ua.site.models.crud.Location.Location;
