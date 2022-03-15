@@ -52,13 +52,17 @@ public class LocationDAO {
                 .stream().findAny().orElse(null);
     }
 
+    public List<Field> findFieldByAreaId(int id) {
+        return jdbcTemplate.query("SELECT * FROM field WHERE area_id=?", new Object[]{id}, new FieldMapper(jdbcTemplate));
+    }
+
     public void saveField(Field field) {
         jdbcTemplate.update("INSERT INTO field (name, latitudes, longitudes, area_id) VALUES(?, ?, ?, (SELECT id from area WHERE id=?))", field.getName(),
                 field.getLatitude(), field.getLongitude(), field.getArea().getId());
     }
 
     public void updateField(int id, Field updatedField) {
-        jdbcTemplate.update("UPDATE area SET name=? WHERE id=?", updatedField.getName(), id);
+        jdbcTemplate.update("UPDATE field SET name=?, area_id=? WHERE id=?", updatedField.getName(), updatedField.getArea().getId(), id);
     }
 
     public void deleteField(int id) {
@@ -71,7 +75,7 @@ public class LocationDAO {
     }
 
 
-    public Sample showTest(int id) {
+    public Sample showSample(int id) {
         return jdbcTemplate.query("SELECT * FROM test WHERE id=?", new Object[]{id}, new SampleMapper(jdbcTemplate))
                 .stream().findAny().orElse(null);
     }
@@ -82,7 +86,7 @@ public class LocationDAO {
     }
 
     public void updateSample(int id, Sample updatedSample) {
-        jdbcTemplate.update("UPDATE area SET field_id=? WHERE id=?", updatedSample.getField().getId(), id);
+        jdbcTemplate.update("UPDATE test SET field_id=? WHERE id=?", updatedSample.getField().getId(), id);
     }
 
     public void deleteSample(int id) {
