@@ -8,11 +8,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ua.site.dao.crud.LocationDAO;
+import ua.site.logic.HandlePostRequest;
 import ua.site.logic.SampleToFieldMatcher;
 import ua.site.models.crud.Area;
 import ua.site.models.crud.Display;
 import ua.site.models.crud.Field;
+import ua.site.models.crud.Location.Location;
 import ua.site.models.crud.Sample;
+import ua.site.parser.JSONStringParser;
 import ua.site.services.ModelService;
 
 import javax.validation.Valid;
@@ -38,6 +41,13 @@ public class LocationController {
         return String.format("redirect:/locations/%ss", object.getObject());
     }
 
+    // ------------ General block --------------
+    @PostMapping("/file")
+    @ResponseBody
+    public String handleJSONFile(@RequestBody String locations) {
+        Location[] locs = JSONStringParser.readJSONArray(locations);
+        return HandlePostRequest.handle(locs, locationDAO);
+    }
 
     // ------------ Area block --------------
     @GetMapping("/areas")
