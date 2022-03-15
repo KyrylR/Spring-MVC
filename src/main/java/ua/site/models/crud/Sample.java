@@ -27,6 +27,12 @@ public class Sample implements Display {
         this.areaId = field.getId();
     }
 
+    public Sample(double latitude, double longitude, int areaId) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.areaId = areaId;
+    }
+
     public int getId() {
         return id;
     }
