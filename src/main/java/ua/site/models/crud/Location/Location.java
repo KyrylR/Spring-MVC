@@ -31,7 +31,7 @@ public class Location {
      * @param region    - The region in which the point was obtained
      * @param latitude  - Latitude is the measurement of distance north or south of the Equator.
      * @param longitude - Longitude is the measurement east or west of the prime meridian.
-     * @param depth
+     * @param depth     - Depth of the processed ground measured by penetrometer
      */
     public Location(String region, double latitude, double longitude, double depth) {
         this.region = region;

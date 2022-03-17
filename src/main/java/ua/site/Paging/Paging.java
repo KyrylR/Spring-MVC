@@ -1,4 +1,4 @@
-package ua.site.models.crud.Paging;
+package ua.site.Paging;
 
 
 import lombok.*;

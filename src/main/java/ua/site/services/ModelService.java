@@ -1,12 +1,12 @@
 package ua.site.services;
 
 import org.springframework.stereotype.Service;
+import ua.site.Paging.Page;
+import ua.site.Paging.Paged;
+import ua.site.Paging.Paging;
 import ua.site.dao.crud.LocationDAO;
 import ua.site.models.crud.Area;
 import ua.site.models.crud.Field;
-import ua.site.models.crud.Paging.Page;
-import ua.site.models.crud.Paging.Paged;
-import ua.site.models.crud.Paging.Paging;
 import ua.site.models.crud.Sample;
 
 import java.util.List;
